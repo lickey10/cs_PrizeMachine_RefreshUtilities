@@ -71,7 +71,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PrizeMachine_WinLootBonus\SafeSurf\TabCtrl\TabCtrl.csproj">
+    <ProjectReference Include="..\..\..\PrizeMachine_Winloot\PrizeMachine_WinLoot\SafeSurf\TabCtrl\TabCtrl.csproj">
       <Project>{12e470d6-9b68-4226-ae77-667636b28026}</Project>
       <Name>TabCtrl</Name>
     </ProjectReference>

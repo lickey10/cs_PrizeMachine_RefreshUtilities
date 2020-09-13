@@ -14,5 +14,6 @@ namespace RefreshUtilities
         public object Browser = null;
         public System.Windows.Forms.HtmlElement ElementToClick = null;
         public System.Windows.Forms.Form FormToSubmit;
+        public System.Windows.Forms.Button ButtonToClick;
     }
 }

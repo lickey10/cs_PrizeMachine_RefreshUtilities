@@ -335,6 +335,42 @@ namespace RefreshUtilities
             }
         }
 
+        public void ClickButton(System.Windows.Forms.Button ButtonToClick, int refreshSeconds, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay)
+        {
+            try
+            {
+                if (!isDisabled)
+                {
+                    if (OverrideCurrentRequests)
+                        goToURLTimer.Tag = null;
+
+                    if (goToURLTimer.Tag == null)
+                    {
+                        goToURLTimer.Stop();
+
+                        //this is how long before the link is clicked
+                        TimerInfo timerInfo = new TimerInfo();
+                        timerInfo.StartTime = DateTime.Now;
+                        timerInfo.ButtonToClick = ButtonToClick;
+                        timerInfo.Duration = TimeSpan.FromSeconds(refreshSeconds);
+                        timerInfo.LblDisplay = lblDisplay;
+
+                        goToURLTimer.Tag = timerInfo;
+                        goToURLTimer.Tick += Timer_Tick;
+                        goToURLTimer.Start();
+
+                        isActive = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Tools.WriteToFile(ex);
+                throw;
+                //Application.Restart();
+            }
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             try
@@ -373,7 +409,7 @@ namespace RefreshUtilities
                                 handler(timerInfo, e);
                             }
                         }
-                        else if (timerInfo.ElementToClick != null)//click a button or link
+                        else if (timerInfo.ElementToClick != null)//click an html button or link
                         {
                             timerInfo.ElementToClick.InvokeMember("Click");
 
@@ -404,6 +440,12 @@ namespace RefreshUtilities
                             //}
 
                             //timerInfo.ElementToClick = null;
+                        }
+                        else if(timerInfo.ButtonToClick != null)
+                        {
+                            timerInfo.ButtonToClick.PerformClick();
+
+                            timerInfo.ButtonToClick = null;
                         }
                     }
                 }

@@ -70,6 +70,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\PrizeMachine_Winloot\PrizeMachine_WinLoot\SafeSurf\TabCtrl\TabCtrl.csproj">
+      <Project>{12e470d6-9b68-4226-ae77-667636b28026}</Project>
+      <Name>TabCtrl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

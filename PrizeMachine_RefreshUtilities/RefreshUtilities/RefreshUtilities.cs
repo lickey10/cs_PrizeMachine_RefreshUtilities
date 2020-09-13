@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RefreshUtilities
 {
@@ -15,6 +12,7 @@ namespace RefreshUtilities
         public event EventHandler CallMethodComplete;
         public event EventHandler GoToUrlComplete;
         public event EventHandler Error;
+        public int AverageRefreshSeconds = 12;
 
         public bool IsActive
         {
@@ -75,8 +73,8 @@ namespace RefreshUtilities
             goToURLTimer.Interval = 1000;//one second
             goToURLTimer.Stop();
         }
-        
-        private double randomSeconds(int seconds,int plusMinus)
+
+        private double randomSeconds(int seconds, int plusMinus)
         {
             int secondsLow = seconds - plusMinus;
             int secondsHigh = seconds + plusMinus;
@@ -109,12 +107,12 @@ namespace RefreshUtilities
 
         public void GoToURL(string URL, System.Windows.Forms.Label lblDisplay, object browser)
         {
-            GoToURL(URL, 12, lblDisplay, browser);
+            GoToURL(URL, AverageRefreshSeconds, lblDisplay, browser);
         }
 
         public void GoToURL(string URL, int refreshSeconds, System.Windows.Forms.Label lblDisplay, object browser)
         {
-            GoToURL(URL, refreshSeconds, (int)(refreshSeconds/4), lblDisplay, browser);
+            GoToURL(URL, refreshSeconds, (int)(refreshSeconds / 4), lblDisplay, browser);
         }
 
         public void GoToURL(string URL, int refreshSeconds, int plusMinusRefreshSeconds, System.Windows.Forms.Label lblDisplay, object browser)
@@ -124,7 +122,7 @@ namespace RefreshUtilities
 
         public void GoToURL(string URL, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay, object browser)
         {
-            GoToURL(URL, 12, OverrideCurrentRequests, lblDisplay, browser);
+            GoToURL(URL, AverageRefreshSeconds, OverrideCurrentRequests, lblDisplay, browser);
         }
 
         public void GoToURL(string URL, int refreshSeconds, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay, object browser)
@@ -168,7 +166,7 @@ namespace RefreshUtilities
                 //Application.Restart();
             }
         }
-        
+
         public void ClickElement(System.Windows.Forms.HtmlElement ElementToClick, System.Windows.Forms.Label lblDisplay)
         {
             ClickElement(ElementToClick, 11, lblDisplay);
@@ -193,7 +191,7 @@ namespace RefreshUtilities
         {
             ClickElement(ElementToClick, refreshSeconds, refreshSecondsPlusMinus, false, lblDisplay);
         }
-        
+
         public void ClickElement(System.Windows.Forms.HtmlElement ElementToClick, int refreshSeconds, int refreshSecondsPlusMinus, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay)
         {
             try
@@ -364,7 +362,7 @@ namespace RefreshUtilities
 
                         if (timerInfo.UrlToGoTo.Trim().Length > 0 && timerInfo.Browser != null && timerInfo.Browser is object)
                         {
-                            if(!timerInfo.UrlToGoTo.ToLower().StartsWith("http"))
+                            if (!timerInfo.UrlToGoTo.ToLower().StartsWith("http"))
                             {
                                 timerInfo.UrlToGoTo = "http://" + timerInfo.UrlToGoTo;
                             }
@@ -395,7 +393,7 @@ namespace RefreshUtilities
                                 handler(timerInfo, e);
                             }
                         }
-                        else if(timerInfo.FormToSubmit != null)
+                        else if (timerInfo.FormToSubmit != null)
                         {
                             //timerInfo.FormToSubmit.InvokeMember("Submit");
 

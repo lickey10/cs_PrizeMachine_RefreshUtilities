@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Text;
 using System.Windows.Forms;
 
 namespace RefreshUtilities
@@ -61,7 +58,7 @@ namespace RefreshUtilities
             }
             else
             {
-                System.IO.Directory.CreateDirectory(configPath.Replace("/config.cel",""));
+                System.IO.Directory.CreateDirectory(configPath.Replace("/config.cel", ""));
                 File.WriteAllText(configPath, "");
             }
 

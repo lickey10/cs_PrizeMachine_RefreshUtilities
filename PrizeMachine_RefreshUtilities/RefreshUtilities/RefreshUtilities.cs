@@ -41,6 +41,8 @@ namespace RefreshUtilities
 
         private bool isActive = false;
         private bool isDisabled = false;
+        public System.Windows.Forms.Label CurrentLblDisplay = null;
+        public object CurrentBrowser = null;
 
         #region examples of usage
         //private void RefreshUtilities_GoToUrlComplete(object sender, EventArgs e)
@@ -75,7 +77,18 @@ namespace RefreshUtilities
             goToURLTimer.Interval = 1000;//one second
             goToURLTimer.Stop();
         }
-        
+
+        public RefreshUtilities(System.Windows.Forms.Label lblDisplay, object browser)
+        {
+            goToURLTimer.Enabled = true;
+            goToURLTimer.Tick += Timer_Tick; ;
+            goToURLTimer.Interval = 1000;//one second
+            goToURLTimer.Stop();
+
+            CurrentLblDisplay = lblDisplay;
+            CurrentBrowser = browser;
+        }
+
         private double randomSeconds(int seconds,int plusMinus)
         {
             int secondsLow = seconds - plusMinus;
@@ -105,6 +118,16 @@ namespace RefreshUtilities
         {
             goToURLTimer.Stop();
             goToURLTimer.Tag = null;
+        }
+
+        public void GoToURL(string URL)
+        {
+            GoToURL(URL, 12, CurrentLblDisplay, CurrentBrowser);
+        }
+
+        public void GoToURL(string URL, object browser)
+        {
+            GoToURL(URL, 12, CurrentLblDisplay, browser);
         }
 
         public void GoToURL(string URL, System.Windows.Forms.Label lblDisplay, object browser)
@@ -158,6 +181,8 @@ namespace RefreshUtilities
                         goToURLTimer.Start();
 
                         isActive = true;
+                        CurrentLblDisplay = lblDisplay;
+                        CurrentBrowser = browser;
                     }
                 }
             }
@@ -168,7 +193,12 @@ namespace RefreshUtilities
                 //Application.Restart();
             }
         }
-        
+
+        public void ClickElement(System.Windows.Forms.HtmlElement ElementToClick)
+        {
+            ClickElement(ElementToClick, 11, CurrentLblDisplay);
+        }
+
         public void ClickElement(System.Windows.Forms.HtmlElement ElementToClick, System.Windows.Forms.Label lblDisplay)
         {
             ClickElement(ElementToClick, 11, lblDisplay);
@@ -220,6 +250,7 @@ namespace RefreshUtilities
                         goToURLTimer.Start();
 
                         isActive = true;
+                        CurrentLblDisplay = lblDisplay;
                     }
                 }
             }
@@ -229,6 +260,11 @@ namespace RefreshUtilities
                 throw;
                 //Application.Restart();
             }
+        }
+
+        public void SubmitForm(System.Windows.Forms.Form FormToSubmit, int refreshSeconds, int refreshSecondsPlusMinus)
+        {
+            SubmitForm(FormToSubmit, refreshSeconds, refreshSecondsPlusMinus, CurrentLblDisplay);
         }
 
         public void SubmitForm(System.Windows.Forms.Form FormToSubmit, int refreshSeconds, int refreshSecondsPlusMinus, System.Windows.Forms.Label lblDisplay)
@@ -254,6 +290,7 @@ namespace RefreshUtilities
                         goToURLTimer.Start();
 
                         isActive = true;
+                        CurrentLblDisplay = lblDisplay;
                     }
                 }
             }
@@ -263,6 +300,11 @@ namespace RefreshUtilities
                 throw;
                 //Application.Restart();
             }
+        }
+
+        public void CallMethod(string MethodToCall)
+        {
+            CallMethod(MethodToCall, null, 3, false, CurrentLblDisplay);
         }
 
         /// <summary>
@@ -326,6 +368,7 @@ namespace RefreshUtilities
                         goToURLTimer.Start();
 
                         isActive = true;
+                        CurrentLblDisplay = lblDisplay;
                     }
                 }
             }
@@ -335,6 +378,11 @@ namespace RefreshUtilities
                 throw;
                 //Application.Restart();
             }
+        }
+
+        public void ClickButton(System.Windows.Forms.Button ButtonToClick, int refreshSeconds, bool OverrideCurrentRequests)
+        {
+            ClickButton(ButtonToClick, refreshSeconds, OverrideCurrentRequests, CurrentLblDisplay);
         }
 
         public void ClickButton(System.Windows.Forms.Button ButtonToClick, int refreshSeconds, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay)
@@ -362,6 +410,7 @@ namespace RefreshUtilities
                         goToURLTimer.Start();
 
                         isActive = true;
+                        CurrentLblDisplay = lblDisplay;
                     }
                 }
             }
@@ -397,6 +446,8 @@ namespace RefreshUtilities
 
                         if (timerInfo.LblDisplay != null && timerInfo.LblDisplay is System.Windows.Forms.Label)
                             timerInfo.LblDisplay.Text = "0 seconds";
+                        else
+                            timerInfo.LblDisplay.Text = "N/A";
 
                         if (timerInfo.UrlToGoTo.Trim().Length > 0 && timerInfo.Browser != null && timerInfo.Browser is object)
                         {

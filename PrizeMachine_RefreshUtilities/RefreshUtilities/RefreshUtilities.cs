@@ -15,6 +15,7 @@ namespace RefreshUtilities
         public event EventHandler CallMethodComplete;
         public event EventHandler GoToUrlComplete;
         public event EventHandler Error;
+        public int AverageRefreshSeconds = 12;
 
         public bool IsActive
         {
@@ -122,17 +123,17 @@ namespace RefreshUtilities
 
         public void GoToURL(string URL)
         {
-            GoToURL(URL, 12, CurrentLblDisplay, CurrentBrowser);
+            GoToURL(URL, AverageRefreshSeconds, CurrentLblDisplay, CurrentBrowser);
         }
 
         public void GoToURL(string URL, object browser)
         {
-            GoToURL(URL, 12, CurrentLblDisplay, browser);
+            GoToURL(URL, AverageRefreshSeconds, CurrentLblDisplay, browser);
         }
 
         public void GoToURL(string URL, System.Windows.Forms.Label lblDisplay, object browser)
         {
-            GoToURL(URL, 12, lblDisplay, browser);
+            GoToURL(URL, AverageRefreshSeconds, lblDisplay, browser);
         }
 
         public void GoToURL(string URL, int refreshSeconds, System.Windows.Forms.Label lblDisplay, object browser)
@@ -147,7 +148,7 @@ namespace RefreshUtilities
 
         public void GoToURL(string URL, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay, object browser)
         {
-            GoToURL(URL, 12, OverrideCurrentRequests, lblDisplay, browser);
+            GoToURL(URL, AverageRefreshSeconds, OverrideCurrentRequests, lblDisplay, browser);
         }
 
         public void GoToURL(string URL, int refreshSeconds, bool OverrideCurrentRequests, System.Windows.Forms.Label lblDisplay, object browser)

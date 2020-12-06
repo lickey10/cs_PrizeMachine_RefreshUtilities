@@ -54,6 +54,7 @@
     <Compile Include="CrossFrameIE.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="FindElement.cs" />
+    <Compile Include="FindValue.cs" />
     <Compile Include="FirstRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefreshUtilities.cs" />
